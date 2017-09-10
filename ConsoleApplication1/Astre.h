@@ -11,7 +11,7 @@ class Astre
 		long double masse;
 		Vecteur* vitesse;
 		Vecteur* acceleration;
-		Astre(long double x, long double y, long double m);
+		Astre(long double x, long double y, long double z, long double m);
 		~Astre();
 		void Calculer(std::vector<Astre> pts, int pos, int lenght, int dureePeriode);
 		Vecteur CalculerAcceleration(Astre p);

@@ -4,7 +4,6 @@
 class Vecteur
 {
 public:
-	const long double PI = 3.1415926535;
 	Point p1;
 	Point p2;
 	long double norme;

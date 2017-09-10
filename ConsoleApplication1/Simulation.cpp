@@ -12,25 +12,15 @@ Simulation::Simulation()
 
 
 void Simulation::Lancer() {
-	int nombreCycle = 30*24;
+	int nombreCycle = 365*24;
 	int dureePeriode = heure;
 
-	Vecteur A = Vecteur(1,Point(0,0),Point(1,0));
-	Vecteur B = Vecteur(1, Point(0, 0), Point(-1,-1));
-	Vecteur C = Vecteur(1, Point(0, 0), Point(-1, 0));
-	Vecteur D = Vecteur(1, Point(0, 0), Point(0, -1));
-
-	A.AjouterVecteur(B);
-	long double b = B.CalculerAngle();
-	long double c = C.CalculerAngle();
-	long double d = D.CalculerAngle();
-
-	Astre Terre(0, 0, 5.9736 * pow(10, 24));
+	Astre Terre(0, 0, 0, 5.9736 * pow(10, 24));
 	Terre.vitesse = &Vecteur(0, Terre.position, Terre.position);
 	Terre.acceleration = &Vecteur(0, Terre.position, Terre.position);
-	Astre Lune(384399000 ,0, 7.3477 * pow(10, 22));
+	Astre Lune(0, 0, 384399000, 7.3477 * pow(10, 22));
 	Lune.acceleration = &Vecteur(0, Lune.position, Lune.position);
-	Lune.vitesse = &Vecteur(1022, Lune.position, Point(384399000, 1022));
+	Lune.vitesse = &Vecteur(1022, Lune.position, Point(0, 1022, 384399000));
 	/*Astre Mercure(57909176000, 0, 3.311 * pow(10, 26));
 	Mercure.acceleration = Deplacement(47360, 0, 57909176000, 47360);
 	Astre Venus(0, 108208930000, 4.8685 * pow(10, 27));
@@ -62,14 +52,13 @@ void Simulation::Lancer() {
 		{
 			pts[j].Calculer(pts, j, nombreObjet, dureePeriode);
 
-			FichierTerre << pts[j].position.x << ";" << pts[j].position.y << ";";
+			FichierTerre << pts[j].position.x << ";" << pts[j].position.y << ";" << pts[j].position.z << ";";
 			FichierTerre << pts[j].vitesse->p2.x - pts[j].vitesse->p1.x << ";" << pts[j].vitesse->p2.y - pts[j].vitesse->p1.y << ";" << pts[j].vitesse->norme << ";";
 			FichierTerre << pts[j].acceleration->p2.x - pts[j].acceleration->p1.x << ";" << pts[j].acceleration->p2.y - pts[j].acceleration->p1.y << ";" << pts[j].acceleration->norme << ";";
 			if (j == 1)
 				FichierTerre << "\n";
 			else
 				FichierTerre << ";";
-
 		}
 	}
 	FichierTerre.close();

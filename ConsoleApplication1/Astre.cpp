@@ -3,9 +3,9 @@
 #include <math.h> 
 
 
-Astre::Astre(long double x, long double y, long double m)
+Astre::Astre(long double x, long double y, long double z, long double m)
 {
-	this->position = Point(x, y);
+	this->position = Point(x, y, z);
 	this->masse = m;
 }
 
@@ -30,6 +30,7 @@ void Astre::Calculer(std::vector<Astre> pts, int pos, int lenght, int dureePerio
 	CalculerPosition(dureePeriode);
 }
 Vecteur Astre::CalculerAcceleration(Astre astre){
+	long double d = this->position.CalculerDistanceCarre(astre.position);
 	long double norme = G*astre.masse / this->position.CalculerDistanceCarre(astre.position);
 	Vecteur acc = Vecteur(norme, this->position, astre.position);
 	return acc;
@@ -45,6 +46,7 @@ void Astre::CalculerVitesse(int dureePeriode) {
 void Astre::CalculerPosition(int dureePeriode) {
 	this->position.x += ((*this->vitesse).p2.x - (*this->vitesse).p1.x)*dureePeriode;
 	this->position.y += ((*this->vitesse).p2.y - (*this->vitesse).p1.y)*dureePeriode;
+	this->position.z += ((*this->vitesse).p2.z - (*this->vitesse).p1.z)*dureePeriode;
 	(*this->vitesse).DeplacerVecteur(this->position);
 	(*this->acceleration).DeplacerVecteur(this->position);
 }
