@@ -29,24 +29,16 @@ void Vecteur::CalculerArriver()
 	long double deltaY = this->p2.y - this->p1.y;
 	long double deltaZ = this->p2.z - this->p1.z;
 
-	long double somme = fabs(deltaX) + fabs(deltaY) + fabs(deltaZ);
+	long double normeActuel = p1.CalculerDistance(p2);
 
-	long double qX = 0;
-	long double qY = 0;
-	long double qZ = 0;
-	long double coef = 0;
-
-	if (somme != 0)
+	if (normeActuel != 0)
 	{
-		qX = deltaX / somme;
-		qY = deltaY / somme;
-		qZ = deltaZ / somme;
-		coef = sqrt(pow(this->norme, 2) / (pow(deltaX, 2) + pow(deltaY, 2) + pow(deltaZ, 2)));
-	}
+		long double coef = norme / normeActuel;
 
-	this->p2.x = this->p1.x + deltaX*coef;
-	this->p2.y = this->p1.y + deltaY*coef;
-	this->p2.z = this->p1.z + deltaZ*coef;
+		this->p2.x = this->p1.x + deltaX*coef;
+		this->p2.y = this->p1.y + deltaY*coef;
+		this->p2.z = this->p1.z + deltaZ*coef;
+	}
 }
 
 void Vecteur::DeplacerVecteur(Point depart)
